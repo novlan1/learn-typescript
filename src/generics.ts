@@ -15,6 +15,18 @@ function echoWithArr<T>(arg: T[]): T[] {
 }
 const arrs = echoWithArr([1, 2, 3])
 
+// 带有调用签名的对象字面量来定义泛型函数：
+
+function identity<T>(arg: T): T {
+    return arg;
+}
+let myIdentity: {<T>(arg: T): T} = identity;
+
+// 泛型函数的类型与非泛型函数的类型没什么不同，只是有一个类型参数在最前面
+let myIdentity2: <U>(arg: U) => U;
+
+
+// 接口
 interface IWithLength {
   length: number
 }
@@ -74,3 +86,30 @@ function printLabel(labelledObj: { label: string }) {
 
 let myObj = { size: 10, label: "Size 10 Object" };
 printLabel(myObj);
+
+
+
+// 补充
+
+interface GenericIdentityFn3 {
+  <T>(arg: T): T;
+}
+
+function identity3<T>(arg: T): T {
+  return arg;
+}
+
+let myIdentity3: GenericIdentityFn3 = identity3;
+
+// 与上差不多，把参数放在了接口上
+interface GenericIdentityFn6<T> {
+  (arg: T): T;
+}
+
+function identity6<T>(arg: T): T {
+  return arg;
+}
+
+let myIdentity6: GenericIdentityFn6<number> = identity6;
+
+
